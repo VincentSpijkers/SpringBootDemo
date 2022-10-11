@@ -13,24 +13,24 @@ public class Category {
     @Id
     @GeneratedValue
     private Long id;
-    private String naam;
+    private String name;
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<Task> tasks;
 
     public Category() { }
 
-    public Category(String naam, Set<Task> tasks) {
-        this.naam = naam;
+    public Category(String name, Set<Task> tasks) {
+        this.name = name;
         this.tasks = tasks;
     }
 
-    public String getNaam() {
-        return naam;
+    public String getName() {
+        return name;
     }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<Task> getTasks() {
@@ -45,7 +45,7 @@ public class Category {
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", naam='" + naam + '\'' +
+                ", naam='" + name + '\'' +
                 ", tasks=" + tasks +
                 '}';
     }

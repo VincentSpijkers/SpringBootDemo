@@ -1,6 +1,7 @@
 package nl.hsleiden.ToDos.DAO;
 
 import nl.hsleiden.ToDos.model.Task;
+import nl.hsleiden.ToDos.service.SortService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,9 +10,11 @@ import java.util.Optional;
 @Component
 public class TaskDAO {
 
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+    private final SortService sortService;
 
-    public TaskDAO(TaskRepository taskRepository) {
+    public TaskDAO(TaskRepository taskRepository, SortService sortService) {
+        this.sortService = sortService;
         this.taskRepository = taskRepository;
     }
 
@@ -19,9 +22,14 @@ public class TaskDAO {
         this.taskRepository.save(task);
     }
 
-    public ArrayList<Task> getAll(){
+    public ArrayList<Task> getAllTasksSortedByName(){
         ArrayList<Task> tasks = (ArrayList<Task>) this.taskRepository.findAll();
-        return tasks;
+        return this.sortService.sortTaskAlphabetically(tasks);
+    }
+
+    public ArrayList<Task> getAllTasksSortedByDone(){
+        ArrayList<Task> tasks = (ArrayList<Task>) this.taskRepository.findAll();
+        return this.sortService.sortTaskByCompleted(tasks);
     }
 
     public Optional<Task> getById(long id){

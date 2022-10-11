@@ -3,7 +3,7 @@ package nl.hsleiden.ToDos.DAO;
 import nl.hsleiden.ToDos.model.Category;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Component
 public class CategoryDAO {
@@ -18,8 +18,8 @@ public class CategoryDAO {
         this.categoryRepository.save(category);
     }
 
-    public List<Category> getAll(){
-        return this.categoryRepository.findAll();
+    public ArrayList<Category> getAll(){
+        return (ArrayList<Category>) this.categoryRepository.findAll();
     }
 
 }

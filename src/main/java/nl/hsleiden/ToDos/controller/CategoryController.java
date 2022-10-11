@@ -1,15 +1,16 @@
 package nl.hsleiden.ToDos.controller;
 import nl.hsleiden.ToDos.DAO.CategoryDAO;
+import nl.hsleiden.ToDos.model.ApiResponse;
 import nl.hsleiden.ToDos.model.Category;
 import nl.hsleiden.ToDos.service.SortService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import java.util.ArrayList;
 
 
 @Controller
-@RequestMapping(value = "/api/categories")
+@RequestMapping(value = "/api/category")
 public class CategoryController {
 
     private final SortService sortService;
@@ -22,14 +23,16 @@ public class CategoryController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public String postCategories(@RequestBody Category category){
+    public ApiResponse postCategories(@RequestBody Category category){
+        //seervice 
         this.categoryDAO.saveToDatabase(category);
-        return "You posted some data!";
+        return new ApiResponse(HttpStatus.ACCEPTED, "You posted some data!");
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public List<Category> categories(){
-        return this.categoryDAO.getAll();
+    public ApiResponse<ArrayList<Category>> categories(){
+        ArrayList<Category> categories = this.categoryDAO.getAll();
+        return new ApiResponse(HttpStatus.ACCEPTED, categories);
     }
 }
