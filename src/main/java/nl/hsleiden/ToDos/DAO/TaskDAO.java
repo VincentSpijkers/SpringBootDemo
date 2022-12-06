@@ -22,6 +22,13 @@ public class TaskDAO {
         this.taskRepository.save(task);
     }
 
+    public void updateTaskDescription(Task task){
+        Task currentTask = this.taskRepository.getById(task.getId());
+        currentTask.setDescription(task.getDescription());
+
+        this.taskRepository.save(currentTask);
+    }
+
     public ArrayList<Task> getAllTasksSortedByName(){
         ArrayList<Task> tasks = (ArrayList<Task>) this.taskRepository.findAll();
         return this.sortService.sortTaskAlphabetically(tasks);
