@@ -24,6 +24,13 @@ public class TaskController {
         return new ApiResponse(HttpStatus.ACCEPTED, "You created a task!");
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse updateTaskDescription(@RequestBody Task task){
+        this.taskDAO.updateTaskDescription(task);
+        return new ApiResponse(HttpStatus.ACCEPTED, "You updated task: " + task.getId() + " successfully.");
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public ApiResponse<ArrayList<Task>> getTasks(){
